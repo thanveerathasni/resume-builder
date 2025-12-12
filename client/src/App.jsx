@@ -14,6 +14,10 @@ import ExperienceEditor from "./components/Editor/ExperienceEditor";
 import ProjectsEditor from "./components/Editor/ProjectsEditor";
 import SkillsEditor from "./components/Editor/SkillsEditor";
 import CertificationsEditor from "./components/Editor/CertificationsEditor"
+import AwardsEditor from "./components/Editor/AwardsEditor";
+import LanguagesEditor from "./components/Editor/LanguagesEditor";
+import SoftSkillsEditor from "./components/Editor/SoftSkillsEditor";
+
 // ---------------------- PREVIEWS ----------------------
 import PersonalPreview from "./components/Preview/PersonalPreview";
 import SummaryPreview from "./components/Preview/SummaryPreview";
@@ -22,6 +26,10 @@ import ExperiencePreview from "./components/Preview/ExperiencePreview";
 import ProjectsPreview from "./components/Preview/ProjectsPreview";
 import SkillsPreview from "./components/Preview/SkillsPreview";
 import CertificationsPreview from "./components/Preview/CertificationsPreview";
+import AwardsPreview from "./components/Preview/AwardsPreview";
+import LanguagesPreview from "./components/Preview/LanguagesPreview";
+import SoftSkillsPreview from "./components/Preview/SoftSkillsPreview";
+
 function App() {
 
   // ---------------------- THEME ----------------------
@@ -119,7 +127,37 @@ const toggleTheme = () =>
   data: [
     { title: "", issuer: "", year: "" }
   ]
-}
+},
+{
+  id: "awards",
+  type: "awards",
+  title: "Awards",
+  data: [
+    { title: "", issuer: "", year: "", description: "" }
+  ]
+},
+{
+  id: "languages",
+  type: "languages",
+  title: "Languages",
+  data: [
+    { name: "English", level: "Fluent" },
+    { name: "Tamil", level: "Fluent" }
+  ]
+},
+{
+  id: "softskills",
+  type: "softskills",
+  title: "Soft Skills",
+  data: [
+    { name: "Communication" },
+    { name: "Teamwork" },
+    { name: "Problem Solving" }
+  ]
+},
+
+
+
 
   ]);
 
@@ -189,6 +227,16 @@ const toggleTheme = () =>
           {activeSection?.type === "certifications" && (
   <CertificationsEditor data={activeSection.data} onUpdate={handleUpdate} />
 )}
+{activeSection?.type === "awards" && (
+  <AwardsEditor data={activeSection.data} onUpdate={handleUpdate} />
+)}
+{activeSection?.type === "languages" && (
+  <LanguagesEditor data={activeSection.data} onUpdate={handleUpdate} />
+)}
+{activeSection?.type === "softskills" && (
+  <SoftSkillsEditor data={activeSection.data} onUpdate={handleUpdate} />
+)}
+
 
         </>
       }
@@ -228,6 +276,19 @@ const toggleTheme = () =>
   data={sections.find((s) => s.type === "certifications")?.data}
   template={template}
 />
+<AwardsPreview
+  data={sections.find((s) => s.type === "awards")?.data}
+  template={template}
+/>
+<LanguagesPreview
+  data={sections.find((s) => s.type === "languages")?.data}
+  template={template}
+/>
+<SoftSkillsPreview
+  data={sections.find((s) => s.type === "softskills")?.data}
+  template={template}
+/>
+
 
         </>
       }
