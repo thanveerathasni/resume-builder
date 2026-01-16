@@ -21,36 +21,27 @@ import HobbiesEditor from "./components/Editor/HobbiesEditor";
 import ReferencesEditor from "./components/Editor/ReferencesEditor";
 import CustomSectionEditor from "./components/Editor/CustomSectionEditor";
 
-// PREVIEWS
-import PersonalPreview from "./components/Preview/PersonalPreview";
-import SummaryPreview from "./components/Preview/SummaryPreview";
-import EducationPreview from "./components/Preview/EducationPreview";
-import ExperiencePreview from "./components/Preview/ExperiencePreview";
-import ProjectsPreview from "./components/Preview/ProjectsPreview";
-import SkillsPreview from "./components/Preview/SkillsPreview";
-import CertificationsPreview from "./components/Preview/CertificationsPreview";
-import AwardsPreview from "./components/Preview/AwardsPreview";
-import LanguagesPreview from "./components/Preview/LanguagesPreview";
-import SoftSkillsPreview from "./components/Preview/SoftSkillsPreview";
-import HobbiesPreview from "./components/Preview/HobbiesPreview";
-import ReferencesPreview from "./components/Preview/ReferencesPreview";
-import CustomSectionPreview from "./components/Preview/CustomSectionPreview";
+// TEMPLATE
+import MinimalTemplate from "./templates/MinimalTemplate";
 
 function App() {
   // ---------------- THEME ----------------
-  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "light"
+  );
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => setTheme(prev => (prev === "light" ? "dark" : "light"));
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   // ---------------- TEMPLATE ----------------
   const [template, setTemplate] = useState("minimal");
 
-  // ---------------- SECTIONS (WITH AUTO-LOAD) ----------------
+  // ---------------- DEFAULT SECTIONS ----------------
   const defaultSections = [
     {
       id: "personal",
@@ -139,7 +130,7 @@ function App() {
     return saved ? JSON.parse(saved) : defaultSections;
   });
 
-  // ---------------- AUTO-SAVE ----------------
+  // ---------------- AUTO SAVE ----------------
   useEffect(() => {
     localStorage.setItem("resume-sections", JSON.stringify(sections));
   }, [sections]);
@@ -150,8 +141,10 @@ function App() {
 
   // ---------------- UPDATE SECTION ----------------
   const handleUpdate = (newData) => {
-    setSections(prev =>
-      prev.map((s) => (s.id === activeId ? { ...s, data: newData } : s))
+    setSections((prev) =>
+      prev.map((s) =>
+        s.id === activeId ? { ...s, data: newData } : s
+      )
     );
   };
 
@@ -162,20 +155,20 @@ function App() {
       id,
       type: "custom",
       title: "Custom Section",
-      data: { title: "Custom Section", items: [{ heading: "", description: "" }] },
+      data: {
+        title: "Custom Section",
+        items: [{ heading: "", description: "" }],
+      },
     };
 
-    setSections(prev => [...prev, newSection]);
+    setSections((prev) => [...prev, newSection]);
     setActiveId(id);
   };
 
   // ---------------- DELETE SECTION ----------------
   const handleDelete = (id) => {
-    setSections(prev => prev.filter(sec => sec.id !== id));
-
-    if (activeId === id) {
-      setActiveId("personal");
-    }
+    setSections((prev) => prev.filter((s) => s.id !== id));
+    if (activeId === id) setActiveId("personal");
   };
 
   // ---------------- REORDER ----------------
@@ -186,7 +179,7 @@ function App() {
     setSections(updated);
   };
 
-  // ---------------- EDITOR + PREVIEW MAPPER ----------------
+  // ---------------- EDITORS ----------------
   const editors = {
     personal: PersonalEditor,
     summary: SummaryEditor,
@@ -203,22 +196,7 @@ function App() {
     custom: CustomSectionEditor,
   };
 
-  const previews = {
-    personal: PersonalPreview,
-    summary: SummaryPreview,
-    experience: ExperiencePreview,
-    education: EducationPreview,
-    projects: ProjectsPreview,
-    skills: SkillsPreview,
-    certifications: CertificationsPreview,
-    awards: AwardsPreview,
-    languages: LanguagesPreview,
-    softskills: SoftSkillsPreview,
-    hobbies: HobbiesPreview,
-    references: ReferencesPreview,
-  };
-
-  const ActiveEditorComponent = editors[activeSection?.type];
+  const ActiveEditor = editors[activeSection?.type];
 
   return (
     <MainLayout
@@ -237,27 +215,14 @@ function App() {
         />
       }
       editor={
-        ActiveEditorComponent ? (
-          <ActiveEditorComponent
+        ActiveEditor ? (
+          <ActiveEditor
             data={activeSection.data}
             onUpdate={handleUpdate}
           />
         ) : null
       }
-      preview={
-        <>
-          {sections.map((sec) => {
-            if (sec.type === "custom") {
-              return <CustomSectionPreview key={sec.id} data={sec.data} />;
-            }
-
-            const PreviewComp = previews[sec.type];
-            return PreviewComp ? (
-              <PreviewComp key={sec.id} data={sec.data} template={template} />
-            ) : null;
-          })}
-        </>
-      }
+      preview={<MinimalTemplate sections={sections} />}
     />
   );
 }
