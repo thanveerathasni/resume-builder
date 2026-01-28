@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function PersonalEditor({ data, onUpdate }) {
+<<<<<<< HEAD
 
   function handlePhotoUpload(e) {
   const file = e.target.files[0];
@@ -16,10 +17,13 @@ export default function PersonalEditor({ data, onUpdate }) {
   reader.readAsDataURL(file);
 }
 
+=======
+>>>>>>> dev
   return (
     <div className="p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
       <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
+<<<<<<< HEAD
       <div className="mb-4">
   <label className="block text-sm font-medium mb-1">
     Profile Photo
@@ -40,6 +44,8 @@ export default function PersonalEditor({ data, onUpdate }) {
   />
 </div>
 
+=======
+>>>>>>> dev
 
       {/* Reusable input component */}
       {[

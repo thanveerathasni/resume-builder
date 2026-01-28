@@ -21,9 +21,14 @@ import HobbiesEditor from "./components/Editor/HobbiesEditor";
 import ReferencesEditor from "./components/Editor/ReferencesEditor";
 import CustomSectionEditor from "./components/Editor/CustomSectionEditor";
 
+<<<<<<< HEAD
 // TEMPLATES
 import MinimalTemplate from "./templates/MinimalTemplate";
 import SidePanelTemplate from "./templates/SidePanelTemplate";
+=======
+// TEMPLATE
+import MinimalTemplate from "./templates/MinimalTemplate";
+>>>>>>> dev
 
 function App() {
   // ---------------- THEME ----------------
@@ -56,7 +61,10 @@ function App() {
         linkedin: "",
         github: "",
         portfolio: "",
+<<<<<<< HEAD
         photo:"",
+=======
+>>>>>>> dev
       },
     },
     {
@@ -200,6 +208,7 @@ function App() {
 
   const ActiveEditor = editors[activeSection?.type];
 
+<<<<<<< HEAD
   // ---------------- TEMPLATE SWITCH ----------------
   const renderPreview = () => {
     switch (template) {
@@ -211,6 +220,8 @@ function App() {
     }
   };
 
+=======
+>>>>>>> dev
   return (
     <MainLayout
       theme={theme}
@@ -235,11 +246,18 @@ function App() {
           />
         ) : null
       }
+<<<<<<< HEAD
       preview={renderPreview()}
+=======
+      preview={<MinimalTemplate sections={sections} />}
+>>>>>>> dev
     />
   );
 }
 
 export default App;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> dev

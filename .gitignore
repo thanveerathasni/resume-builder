@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -23,6 +24,8 @@ dist-ssr
 *.sln
 *.sw?
 
+=======
+>>>>>>> dev
 node_modules
 dist
 .env
