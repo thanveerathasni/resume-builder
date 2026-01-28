@@ -1,10 +1,45 @@
 import React from "react";
 
 export default function PersonalEditor({ data, onUpdate }) {
+
+  function handlePhotoUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    onUpdate({
+      ...data,
+      photo: reader.result, // base64
+    });
+  };
+  reader.readAsDataURL(file);
+}
+
   return (
     <div className="p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
       <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
+      <div className="mb-4">
+  <label className="block text-sm font-medium mb-1">
+    Profile Photo
+  </label>
+
+  {data.photo && (
+    <img
+      src={data.photo}
+      alt="Profile"
+      className="w-24 h-24 rounded-full object-cover mb-2 border"
+    />
+  )}
+
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handlePhotoUpload}
+  />
+</div>
+
 
       {/* Reusable input component */}
       {[

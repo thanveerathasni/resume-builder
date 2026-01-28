@@ -56,6 +56,7 @@ function App() {
         linkedin: "",
         github: "",
         portfolio: "",
+        photo:"",
       },
     },
     {

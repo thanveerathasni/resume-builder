@@ -25,6 +25,15 @@ export default function SidePanelTemplate({ sections }) {
 
       {/* ===== LEFT SIDEBAR ===== */}
       <aside className="w-[30%] bg-gray-100 p-6">
+{personal?.photo && (
+  <div className="flex justify-center mb-6">
+    <img
+      src={personal.photo}
+      alt="Profile"
+      className="w-28 h-28 rounded-full object-cover border-2 border-white"
+    />
+  </div>
+)}
 
         <h1 className="text-2xl font-bold mb-2">
           {personal?.fullName || "Your Name"}
